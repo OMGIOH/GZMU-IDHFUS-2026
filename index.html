@@ -267,6 +267,10 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: auto;
     }
 
     .video-placeholder {
@@ -643,8 +647,10 @@
           <video id="mainVideo" controls playsinline muted preload="auto"
                  poster="" x5-video-player-type="h5"
                  x5-video-orientation="landscape"
-                 webkit-playsinline>
-            <source src="作品.mp4" type="video/mp4">
+                 webkit-playsinline
+                 controlsList="nodownload"
+                 oncontextmenu="return false"
+                 disablePictureInPicture>
           </video>
         </div>
       </div>
@@ -764,9 +770,22 @@
     // ============ 视频加载函数 ============
     window.loadVideo = function(url) {
       const video = document.getElementById('mainVideo');
-      video.querySelector('source').src = url;
+      video.querySelector('source') && video.querySelector('source').remove();
+      const source = document.createElement('source');
+      source.src = url;
+      source.type = 'video/mp4';
+      video.appendChild(source);
       video.load();
     };
+
+    (function() {
+      const video = document.getElementById('mainVideo');
+      const source = document.createElement('source');
+      source.src = '作品.mp4';
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      video.load();
+    })();
 
     console.log('🦋 鼓藏之灵 · 蝴蝶传说');
     console.log('💡 loadVideo("视频地址") 加载视频');
