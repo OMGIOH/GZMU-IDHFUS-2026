@@ -266,18 +266,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
-    }
-
-    .video-inner.has-video video {
       display: block;
     }
 
-    .video-inner.has-video .video-placeholder {
-      display: none;
-    }
-
     .video-placeholder {
+      display: none;
       text-align: center;
       z-index: 1;
     }
@@ -651,7 +644,7 @@
                  poster="" x5-video-player-type="h5"
                  x5-video-orientation="landscape"
                  webkit-playsinline>
-            <source src="/GZMU-IDHFUS-2026/作品.mp4" type="video/mp4">
+            <source src="作品.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -771,21 +764,9 @@
     // ============ 视频加载函数 ============
     window.loadVideo = function(url) {
       const video = document.getElementById('mainVideo');
-      const inner = document.getElementById('videoInner');
       video.querySelector('source').src = url;
       video.load();
-      inner.classList.add('has-video');
     };
-
-    // 视频加载失败时显示占位
-    const mainVideo = document.getElementById('mainVideo');
-    const videoInner = document.getElementById('videoInner');
-    mainVideo.addEventListener('error', function() {
-      videoInner.classList.remove('has-video');
-    });
-    mainVideo.addEventListener('loadeddata', function() {
-      videoInner.classList.add('has-video');
-    });
 
     console.log('🦋 鼓藏之灵 · 蝴蝶传说');
     console.log('💡 loadVideo("视频地址") 加载视频');
