@@ -643,17 +643,17 @@
     <!-- 视频区 —— 一打开就能看到 -->
     <div class="video-section anim-up">
       <div class="video-frame">
-        <div class="video-inner has-video" id="videoInner">
+        <div class="video-inner" id="videoInner">
           <div class="video-placeholder" id="videoPlaceholder">
             <span class="butterfly-big">🦋</span>
             <p class="text">蝴蝶传说 · 影像即将呈现</p>
             <p class="sub">The Butterfly Legend</p>
           </div>
-          <video id="mainVideo" controls playsinline preload="metadata"
+          <video id="mainVideo" controls playsinline muted preload="auto"
                  poster="" x5-video-player-type="h5"
                  x5-video-orientation="landscape"
                  webkit-playsinline>
-            <source src="../作品.mp4" type="video/mp4">
+            <source src="/GZMU-IDHFUS-2026/作品.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -778,6 +778,16 @@
       video.load();
       inner.classList.add('has-video');
     };
+
+    // 视频加载失败时显示占位
+    const mainVideo = document.getElementById('mainVideo');
+    const videoInner = document.getElementById('videoInner');
+    mainVideo.addEventListener('error', function() {
+      videoInner.classList.remove('has-video');
+    });
+    mainVideo.addEventListener('loadeddata', function() {
+      videoInner.classList.add('has-video');
+    });
 
     console.log('🦋 鼓藏之灵 · 蝴蝶传说');
     console.log('💡 loadVideo("视频地址") 加载视频');
